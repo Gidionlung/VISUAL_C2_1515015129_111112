@@ -5,6 +5,8 @@
  */
 package Latihan5;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -52,6 +54,7 @@ public class Latihan5 extends javax.swing.JFrame {
         Hapus = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabel = new javax.swing.JTable();
+        Keluar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -62,7 +65,7 @@ public class Latihan5 extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 0));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("TABEL PELANGGAN");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -72,14 +75,14 @@ public class Latihan5 extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(162, 162, 162))
+                .addGap(118, 118, 118))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel4)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 0));
@@ -92,6 +95,17 @@ public class Latihan5 extends javax.swing.JFrame {
 
         Kota.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Kota.setText("Kota Asal  :");
+
+        txtTelpon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelponActionPerformed(evt);
+            }
+        });
+        txtTelpon.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTelponKeyPressed(evt);
+            }
+        });
 
         cbKota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Samarinda", "Tenggarong", "Balikpapan", "Tarakan", "Berau", "Grogot" }));
 
@@ -173,6 +187,7 @@ public class Latihan5 extends javax.swing.JFrame {
         });
         jPanel3.add(Hapus);
 
+        Tabel.setBackground(new java.awt.Color(51, 153, 0));
         Tabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -200,6 +215,13 @@ public class Latihan5 extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Tabel);
 
+        Keluar.setText("Keluar");
+        Keluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KeluarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,12 +231,18 @@ public class Latihan5 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Keluar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,6 +254,8 @@ public class Latihan5 extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Keluar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -234,10 +264,10 @@ public class Latihan5 extends javax.swing.JFrame {
 
     private void HapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null,"APAKAH ANDA YAKIN AKAN MENGHAPUS DATA !");
+        JOptionPane.showMessageDialog(null,"Bujuran wall !");
         int baris = Tabel.getSelectedRow();
         model.removeRow(baris);
-        JOptionPane.showMessageDialog(null, "DATA BERHASIL TERHAPUS");
+        JOptionPane.showMessageDialog(null, "Aman wal...");
     }//GEN-LAST:event_HapusActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -276,6 +306,27 @@ public class Latihan5 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_SimpanActionPerformed
 
+    private void KeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeluarActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_KeluarActionPerformed
+
+    private void txtTelponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelponActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelponActionPerformed
+
+    private void txtTelponKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelponKeyPressed
+        // TODO add your handling code here:
+        txtTelpon.addKeyListener(new KeyAdapter(){
+            public void keyTyped(KeyEvent e){
+                char character = e.getKeyChar();
+                if (((character < '0')|| (character > '9')) && character != '\b') {
+                    e.consume();
+                }
+            }
+        });
+    }//GEN-LAST:event_txtTelponKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -313,6 +364,7 @@ public class Latihan5 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Hapus;
+    private javax.swing.JButton Keluar;
     private javax.swing.JLabel Kota;
     private javax.swing.JLabel Nama;
     private javax.swing.JButton Simpan;
