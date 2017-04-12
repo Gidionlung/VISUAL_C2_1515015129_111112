@@ -10,6 +10,7 @@ package Latihan6;
  * @author Gidion
  */
 import java.sql.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Latihan6 extends javax.swing.JFrame {
@@ -30,6 +31,7 @@ public class Latihan6 extends javax.swing.JFrame {
     
      private void InitTable(){
         model = new DefaultTableModel();
+        model.addColumn("id_Buku");
         model.addColumn("Judul");
         model.addColumn("Penulis");
         model.addColumn("Harga");
@@ -44,15 +46,44 @@ public class Latihan6 extends javax.swing.JFrame {
           rss = stt.executeQuery(sql);
           while(rss.next()){
               Object[] o = new Object[3];
-              o[0] = rss.getString("Judul");
-              o[1] = rss.getString("Penulis");
-              o[2] = rss.getInt("Harga");
+              o[0] = rss.getString("id");
+              o[1] = rss.getString("Judul");
+              o[2] = rss.getString("Penulis");
+              o[3] = rss.getInt("Harga");
               model.addRow(o);
           }
       }catch(SQLException e){
           System.out.println(e.getMessage());
       }
   }
+  
+  
+        public boolean Ubah(String id, String Judul, String Penulis, String Harga){
+            try{
+                String sql = "Update buku set Judul = '"+Judul
+                        +"', Penulis = '"+Penulis+"',Harga = "+Harga
+                        +", Where id = "+id+";";
+                stt = con.createStatement();
+                stt.executeUpdate(sql);
+                return true;
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+        
+        public boolean Hapus(String id){
+            try{
+                String sql = "Delete from buku where id = "+id+";";
+                stt = con.createStatement();
+                stt.executeUpdate(sql);
+                return true;
+         
+            }catch(SQLException e){
+                 System.out.println(e.getMessage());
+                 return false;
+        }
+        }
   
   private void TambahData(String Judul, String Penulis, int Harga){
         try{
@@ -63,6 +94,7 @@ public class Latihan6 extends javax.swing.JFrame {
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
+    
   }
         
     /**
@@ -84,11 +116,11 @@ public class Latihan6 extends javax.swing.JFrame {
         txtJudul = new javax.swing.JTextField();
         txtHarga = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        Simpan = new javax.swing.JButton();
+        Tambah = new javax.swing.JButton();
+        Ubah = new javax.swing.JButton();
+        Hapus = new javax.swing.JButton();
+        Keluar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -181,44 +213,59 @@ public class Latihan6 extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 51, 255));
         jPanel3.setLayout(new java.awt.GridLayout(1, 0, 15, 0));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("Simpan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Simpan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Simpan.setText("Simpan");
+        Simpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                SimpanActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1);
+        jPanel3.add(Simpan);
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton5.setText("Tambah");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        Tambah.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Tambah.setText("Tambah");
+        Tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                TambahActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton5);
+        jPanel3.add(Tambah);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setText("Ubah");
-        jPanel3.add(jButton2);
-
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton3.setText("Hapus");
-        jPanel3.add(jButton3);
-
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton4.setText("Keluar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        Ubah.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Ubah.setText("Ubah");
+        Ubah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                UbahActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton4);
+        jPanel3.add(Ubah);
+
+        Hapus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Hapus.setText("Hapus");
+        Hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HapusActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Hapus);
+
+        Keluar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Keluar.setText("Keluar");
+        Keluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KeluarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Keluar);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Search");
 
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtSearchKeyTyped(evt);
@@ -230,8 +277,18 @@ public class Latihan6 extends javax.swing.JFrame {
 
         cbBy.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cbBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Judul", "Penulis" }));
+        cbBy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbByActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setViewportBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
 
         Tabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Tabel.setModel(new javax.swing.table.DefaultTableModel(
@@ -245,6 +302,11 @@ public class Latihan6 extends javax.swing.JFrame {
                 "Judul", "Penulis", "Harga"
             }
         ));
+        Tabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -293,18 +355,18 @@ public class Latihan6 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void SimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimpanActionPerformed
         // TODO add your handling code here:
         String judul = txtJudul.getText();
         String penulis = cbPenulis.getSelectedItem().toString();
         int harga = Integer.parseInt(txtHarga.getText());
         TambahData(judul, penulis, harga);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_SimpanActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void KeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeluarActionPerformed
         // TODO add your handling code here:
         System.exit(0);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_KeluarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
@@ -336,12 +398,51 @@ public class Latihan6 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtSearchKeyTyped
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void TambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TambahActionPerformed
         // TODO add your handling code here:
         txtJudul.setText("");
         txtHarga.setText("");
  
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_TambahActionPerformed
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void cbByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbByActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbByActionPerformed
+
+    private void UbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UbahActionPerformed
+        // TODO add your handling code here:
+        int baris = Tabel.getSelectedRow();
+        String id = Tabel.getValueAt(baris, 0).toString();
+        if(Hapus(id))
+            JOptionPane.showMessageDialog(null, "Barhasil Wall");
+        else
+            JOptionPane.showMessageDialog(null, "Gagal wall");
+        
+        InitTable();TampilData();
+    }//GEN-LAST:event_UbahActionPerformed
+
+    private void HapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_HapusActionPerformed
+
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void TabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelMouseClicked
+        // TODO add your handling code here:
+        int baris = Tabel.getSelectedRow();
+        
+        txtJudul.setText(Tabel.getValueAt(baris, 1).toString());
+        cbPenulis.setSelectedItem(Tabel.getValueAt(baris, 2).toString());
+        txtHarga.setText(Tabel.getValueAt(baris, 3).toString());
+    }//GEN-LAST:event_TabelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -379,14 +480,14 @@ public class Latihan6 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Hapus;
+    private javax.swing.JButton Keluar;
+    private javax.swing.JButton Simpan;
     private javax.swing.JTable Tabel;
+    private javax.swing.JButton Tambah;
+    private javax.swing.JButton Ubah;
     private javax.swing.JComboBox<String> cbBy;
     private javax.swing.JComboBox<String> cbPenulis;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
